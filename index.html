@@ -23,8 +23,8 @@
 
     .link {
       fill: none;
-      stroke: #ccc;
-      stroke-width: 2px;
+      stroke: rgb(245, 245, 245);
+      stroke-width: 1px;
     }
   </style>
 
@@ -37,7 +37,7 @@
 
   <script>
     var treeData = [{
-      "name": "ЗНП",
+      "name": "ЗНП АО ОПВЭиФ",
       "parent": "null",
       "children": [{
           "name": "Генеральный директор",
@@ -211,7 +211,7 @@
       nodeUpdate.select("circle")
         .attr("r", 8)
         .style("fill", function (d) {
-          return d._children ? "lightsteelblue" : "#fff";
+          return d._children ? "red" : "#fff";
         });
 
       nodeUpdate.select("text")
@@ -281,11 +281,19 @@
     }
 
     function collapse(d) {
-  if (d.children) {
-    d._children = d.children;
-    d._children.forEach(collapse);
-    d.children = null;
-  }
+      console.log(d.children);
+      const size =  d.children ? d.children.length : 0;
+      for(let i=0;i<size;i++){
+        d.children[i]._children=d.children[i].children;
+        d.children[i].children=null;
+      } 
+      d._children = d.children;
+      d.children = null;
+  // if (d.children) {
+  //   d._children = d.children;
+  //   d._children.forEach(collapse);
+  //   d.children = null;
+  // }
 }
     // Toggle children on click.
     function click(d) {
