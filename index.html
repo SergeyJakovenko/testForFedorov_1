@@ -52,7 +52,11 @@
         {
           "name": "Исполнительный Директор",
           "parent": "ЗНП АО ОПВЭиФ",
-          "children": [{}]
+          "children": [{
+            "name": "Тест",
+            "parent": "Исполнительный Директор",
+            "children": [{}]
+          }]
         }
       ]
     }];
@@ -219,11 +223,19 @@
     }
 
     function collapse(d) {
-  if (d.children) {
-    d._children = d.children;
-    d._children.forEach(collapse);
-    d.children = null;
-  }
+      console.log(d.children);
+      const size =  d.children ? d.children.length : 0;
+      for(let i=0;i<size;i++){
+        d.children[i]._children=d.children[i].children;
+        d.children[i].children=null;
+      } 
+      d._children = d.children;
+      d.children = null;
+  // if (d.children) {
+  //   d._children = d.children;
+  //   d._children.forEach(collapse);
+  //   d.children = null;
+  // }
 }
     // Toggle children on click.
     function click(d) {
